@@ -9,12 +9,14 @@
 (defvar primary-pane (frame-selected-window)
   "The pane that has an active mode-line.")
 
-(defun primary-pane-set ()
-  "Set the primary pane."
+(defun primary-pane ()
+  "Get and possibly set the primary pane."
   (umr-let
    p (frame-selected-window)
-   (unless (minibuffer-window-active-p p)
-     (setq primary-pane p))))
+   (progn
+     (unless (minibuffer-window-active-p p)
+       (setq primary-pane p))
+     primary-pane)))
 
 (defun primary-pane-active? ()
   (eq primary-pane (selected-window)))
@@ -31,6 +33,6 @@
   focus-in-hook
   window-configuration-change-hook
   ]
- [primary-pane-set])
+ [primary-pane])
 
 (provide 'primary-pane)
