@@ -3,7 +3,7 @@
   (require 'umr))
 
 (mapc #'require
-      [hooker])
+      [hook-up])
 
 ;;; Track primary pane.
 (defvar primary-pane (frame-selected-window)
@@ -21,11 +21,11 @@
 (defun primary-pane-active? ()
   (eq primary-pane (selected-window)))
 
-(hooker-make-hook :after select-frame)
+(hook-up-make-hook :after select-frame)
 
-(hooker-make-hook :after handle-select-window)
+(hook-up-make-hook :after handle-select-window)
 
-(hooker-hook-up
+(hook-up
  [
   after-handle-select-window-hook
   after-select-frame-hook
