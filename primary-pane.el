@@ -1,7 +1,4 @@
 ;;; primary-pane.el --- Track the primary pane. -*- lexical-binding: t -*-
-(eval-when-compile
-  (require 'umr))
-
 (mapc #'require
       [hook-up])
 
@@ -11,12 +8,10 @@
 
 (defun primary-pane ()
   "Get and possibly set the primary pane."
-  (umr-let
-   p (frame-selected-window)
-   (progn
-     (unless (minibuffer-window-active-p p)
-       (setq primary-pane p))
-     primary-pane)))
+  (let ((p (frame-selected-window)))
+    (unless (minibuffer-window-active-p p)
+      (setq primary-pane p))
+    primary-pane))
 
 (defun primary-pane-active? ()
   (eq primary-pane (selected-window)))
@@ -26,13 +21,11 @@
 (hook-up-make-hook :after handle-select-window)
 
 (hook-up
- [
-  after-handle-select-window-hook
+ [after-handle-select-window-hook
   after-select-frame-hook
   buffer-list-update-hook
   focus-in-hook
-  window-configuration-change-hook
-  ]
+  window-configuration-change-hook]
  [primary-pane])
 
 (provide 'primary-pane)
