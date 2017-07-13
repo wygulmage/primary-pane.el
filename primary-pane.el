@@ -16,9 +16,9 @@
 (defun primary-pane-active? ()
   (eq primary-pane (selected-window)))
 
-(hook-up-make-hook :after select-frame)
+(hook-up-def-hook :after #'select-frame)
 
-(hook-up-make-hook :after handle-select-window)
+(hook-up-def-hook :after #'handle-select-window)
 
 (hook-up
  [after-handle-select-window-hook
